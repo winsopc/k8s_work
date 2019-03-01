@@ -1,2 +1,2 @@
-1 Have working k8s cluster
-2 run ./setupk8s.ui
+First Have working k8s cluster
+Then  ./setupk8s.ui
