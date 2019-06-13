@@ -1,0 +1,778 @@
+<!doctype html>
+<html ng-app="TaskApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rally | Rally Task Report</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js"></script>
+  
+
+  <script type="text/javascript">
+
+    "use strict";
+    if (typeof angular === "object") { angular.module("TaskApp", []).controller(
+      "TaskController", ["$scope", "$location", function($scope, $location) {
+
+        $scope.source = "{\n  \"OvnNetwork.create_and_bind_ports\": [\n    {\n      \"args\": {\n        \"network_create_args\": {\n          \"amount\": 20, \n          \"batch\": 1, \n          \"start_cidr\": \"172.160.10.0/23\"\n        }, \n        \"port_bind_args\": {\n          \"wait_sync\": \"none\", \n          \"wait_up\": true\n        }, \n        \"port_create_args\": {\n          \"batch\": 18\n        }, \n        \"ports_per_network\": 18\n      }, \n      \"context\": {\n        \"ovn_multihost\": {\n          \"controller\": \"ovn-controller-node\"\n        }, \n        \"sandbox\": {\n          \"tag\": \"ToR10\"\n        }\n      }, \n      \"runner\": {\n        \"times\": 1, \n        \"type\": \"serial\"\n      }\n    }\n  ]\n}";
+        $scope.scenarios = [{"load_profile": [["parallel iterations", [[0.5, 1], [1.0, 1], [1.5, 1], [2.0, 1], [2.5, 1], [3.0, 1], [3.5, 1], [4.0, 1], [4.5, 1], [5.0, 1], [5.5, 1], [6.0, 1], [6.5, 1], [7.0, 1], [7.5, 1], [8.0, 1], [8.5, 1], [9.0, 1], [9.5, 1], [10.0, 1], [10.5, 1], [11.0, 1], [11.5, 1], [12.0, 1], [12.5, 1], [13.0, 1], [13.5, 1], [14.0, 1], [14.5, 1], [15.0, 1], [15.5, 1], [16.0, 1], [16.5, 1], [17.0, 1], [17.5, 1], [18.0, 1], [18.5, 1], [19.0, 1], [19.5, 1], [20.0, 1], [20.5, 1], [21.0, 1], [21.5, 1], [22.0, 1], [22.5, 1], [23.0, 1], [23.5, 1], [24.0, 1], [24.5, 1], [25.0, 1], [25.5, 1], [26.0, 1], [26.5, 1], [27.0, 1], [27.5, 1], [28.0, 1], [28.5, 1], [29.0, 1], [29.5, 1], [30.0, 1], [30.5, 1], [31.0, 1], [31.5, 1], [32.0, 1], [32.5, 1], [33.0, 1], [33.5, 1], [34.0, 1], [34.5, 1], [35.0, 1], [35.5, 1], [36.0, 1], [36.5, 1], [37.0, 1], [37.5, 1], [38.0, 1], [38.5, 1], [39.0, 1], [39.5, 1], [40.0, 1], [40.5, 1], [41.0, 1], [41.5, 1], [42.0, 1], [42.5, 1], [43.0, 1], [43.5, 1], [44.0, 1], [44.5, 1], [45.0, 1], [45.5, 1], [46.0, 1], [46.5, 1], [47.0, 1], [47.5, 1], [48.0, 1], [48.5, 1], [49.0, 1], [49.5, 1], [50.0, 1], [50.5, 1], [51.0, 1], [51.5, 1], [52.0, 1], [52.5, 1], [53.0, 1], [53.5, 1], [54.0, 1], [54.5, 1], [55.0, 1], [55.5, 1], [56.0, 1], [56.5, 1], [57.0, 1], [57.5, 1], [58.0, 1], [58.5, 1], [59.0, 1], [59.5, 1], [60.0, 1], [60.5, 1], [61.0, 1], [61.5, 1], [62.0, 1], [62.5, 1], [63.0, 1], [63.5, 1], [64.0, 1], [64.5, 1], [65.0, 1], [65.5, 1], [66.0, 1], [66.5, 1], [67.0, 1], [67.5, 1], [68.0, 1], [68.5, 1], [69.0, 1], [69.5, 1], [70.0, 1], [70.5, 1], [71.0, 1], [71.5, 1], [72.0, 1], [72.5, 1], [73.0, 1], [73.5, 1], [74.0, 1], [74.5, 1], [75.0, 1], [75.5, 1], [76.0, 1], [76.5, 1], [77.0, 1], [77.5, 1], [78.0, 1], [78.5, 1], [79.0, 1], [79.5, 1], [80.0, 1], [80.5, 1], [81.0, 1], [81.5, 1], [82.0, 1], [82.5, 1], [83.0, 1], [83.5, 1], [84.0, 1], [84.5, 1], [85.0, 1], [85.5, 1], [86.0, 1], [86.5, 1], [87.0, 1], [87.5, 1], [88.0, 1], [88.5, 1], [89.0, 1], [89.5, 1], [90.0, 1], [90.5, 1], [91.0, 1], [91.5, 1], [92.0, 1], [92.5, 1], [93.0, 1], [93.5, 1], [94.0, 1], [94.5, 1], [94.7328429222107, 1]]]], "errors": [], "name": "create_and_bind_ports", "runner": "serial", "iterations_count": 1, "output_errors": [], "pos": "0", "load_duration": 94.7328429222107, "sla_success": true, "met": "create_and_bind_ports", "atomic": {"pie": [["ovn.create_lswitch", 1.5597259998321533], ["ovn.create_lport", 0.04979586601257324], ["ovn_network.bind_port", 5.261145114898682], ["ovn_network.wait_port_up", 0.0005578994750976562], ["ovn.create_lport (2)", 0.0583338737487793], ["ovn_network.bind_port (2)", 0.9611201286315918], ["ovn_network.wait_port_up (2)", 0.0005428791046142578], ["ovn.create_lport (3)", 0.09137606620788574], ["ovn_network.bind_port (3)", 1.1253619194030762], ["ovn_network.wait_port_up (3)", 0.0003459453582763672], ["ovn.create_lport (4)", 0.14844894409179688], ["ovn_network.bind_port (4)", 1.3248779773712158], ["ovn_network.wait_port_up (4)", 0.00038814544677734375], ["ovn.create_lport (5)", 0.24289894104003906], ["ovn_network.bind_port (5)", 1.5750200748443604], ["ovn_network.wait_port_up (5)", 0.0003981590270996094], ["ovn.create_lport (6)", 0.28943705558776855], ["ovn_network.bind_port (6)", 1.838587999343872], ["ovn_network.wait_port_up (6)", 0.0004398822784423828], ["ovn.create_lport (7)", 0.2479860782623291], ["ovn_network.bind_port (7)", 2.1628849506378174], ["ovn_network.wait_port_up (7)", 0.00044083595275878906], ["ovn.create_lport (8)", 0.31052303314208984], ["ovn_network.bind_port (8)", 2.512178897857666], ["ovn_network.wait_port_up (8)", 0.0003750324249267578], ["ovn.create_lport (9)", 0.39877820014953613], ["ovn_network.bind_port (9)", 2.923776865005493], ["ovn_network.wait_port_up (9)", 0.0004379749298095703], ["ovn.create_lport (10)", 0.43496012687683105], ["ovn_network.bind_port (10)", 3.3284828662872314], ["ovn_network.wait_port_up (10)", 0.00044989585876464844], ["ovn.create_lport (11)", 0.4507601261138916], ["ovn_network.bind_port (11)", 3.7033939361572266], ["ovn_network.wait_port_up (11)", 0.0004220008850097656], ["ovn.create_lport (12)", 0.37570881843566895], ["ovn_network.bind_port (12)", 4.161636829376221], ["ovn_network.wait_port_up (12)", 0.0004508495330810547], ["ovn.create_lport (13)", 0.6838419437408447], ["ovn_network.bind_port (13)", 4.628485918045044], ["ovn_network.wait_port_up (13)", 0.0004398822784423828], ["ovn.create_lport (14)", 0.7249159812927246], ["ovn_network.bind_port (14)", 5.136337041854858], ["ovn_network.wait_port_up (14)", 0.0003509521484375], ["ovn.create_lport (15)", 0.6077620983123779], ["ovn_network.bind_port (15)", 5.765133857727051], ["ovn_network.wait_port_up (15)", 0.0004448890686035156], ["ovn.create_lport (16)", 0.5462591648101807], ["ovn_network.bind_port (16)", 6.2871129512786865], ["ovn_network.wait_port_up (16)", 0.000553131103515625], ["ovn.create_lport (17)", 0.9113578796386719], ["ovn_network.bind_port (17)", 6.867234945297241], ["ovn_network.wait_port_up (17)", 0.00045013427734375], ["ovn.create_lport (18)", 0.9288339614868164], ["ovn_network.bind_port (18)", 7.4819958209991455], ["ovn_network.wait_port_up (18)", 0.00037479400634765625], ["ovn.create_lport (19)", 0.754673957824707], ["ovn_network.bind_port (19)", 8.146694898605347], ["ovn_network.wait_port_up (19)", 0.0004630088806152344], ["ovn.create_lport (20)", 0.6414000988006592], ["ovn_network.bind_port (20)", 8.837276935577393], ["ovn_network.wait_port_up (20)", 0.0004642009735107422]], "iter": [["ovn.create_lswitch", [[1, 1.5597259998321533]]], ["ovn.create_lport", [[1, 0.04979586601257324]]], ["ovn_network.bind_port", [[1, 5.261145114898682]]], ["ovn_network.wait_port_up", [[1, 0.0005578994750976562]]], ["ovn.create_lport (2)", [[1, 0.0583338737487793]]], ["ovn_network.bind_port (2)", [[1, 0.9611201286315918]]], ["ovn_network.wait_port_up (2)", [[1, 0.0005428791046142578]]], ["ovn.create_lport (3)", [[1, 0.09137606620788574]]], ["ovn_network.bind_port (3)", [[1, 1.1253619194030762]]], ["ovn_network.wait_port_up (3)", [[1, 0.0003459453582763672]]], ["ovn.create_lport (4)", [[1, 0.14844894409179688]]], ["ovn_network.bind_port (4)", [[1, 1.3248779773712158]]], ["ovn_network.wait_port_up (4)", [[1, 0.00038814544677734375]]], ["ovn.create_lport (5)", [[1, 0.24289894104003906]]], ["ovn_network.bind_port (5)", [[1, 1.5750200748443604]]], ["ovn_network.wait_port_up (5)", [[1, 0.0003981590270996094]]], ["ovn.create_lport (6)", [[1, 0.28943705558776855]]], ["ovn_network.bind_port (6)", [[1, 1.838587999343872]]], ["ovn_network.wait_port_up (6)", [[1, 0.0004398822784423828]]], ["ovn.create_lport (7)", [[1, 0.2479860782623291]]], ["ovn_network.bind_port (7)", [[1, 2.1628849506378174]]], ["ovn_network.wait_port_up (7)", [[1, 0.00044083595275878906]]], ["ovn.create_lport (8)", [[1, 0.31052303314208984]]], ["ovn_network.bind_port (8)", [[1, 2.512178897857666]]], ["ovn_network.wait_port_up (8)", [[1, 0.0003750324249267578]]], ["ovn.create_lport (9)", [[1, 0.39877820014953613]]], ["ovn_network.bind_port (9)", [[1, 2.923776865005493]]], ["ovn_network.wait_port_up (9)", [[1, 0.0004379749298095703]]], ["ovn.create_lport (10)", [[1, 0.43496012687683105]]], ["ovn_network.bind_port (10)", [[1, 3.3284828662872314]]], ["ovn_network.wait_port_up (10)", [[1, 0.00044989585876464844]]], ["ovn.create_lport (11)", [[1, 0.4507601261138916]]], ["ovn_network.bind_port (11)", [[1, 3.7033939361572266]]], ["ovn_network.wait_port_up (11)", [[1, 0.0004220008850097656]]], ["ovn.create_lport (12)", [[1, 0.37570881843566895]]], ["ovn_network.bind_port (12)", [[1, 4.161636829376221]]], ["ovn_network.wait_port_up (12)", [[1, 0.0004508495330810547]]], ["ovn.create_lport (13)", [[1, 0.6838419437408447]]], ["ovn_network.bind_port (13)", [[1, 4.628485918045044]]], ["ovn_network.wait_port_up (13)", [[1, 0.0004398822784423828]]], ["ovn.create_lport (14)", [[1, 0.7249159812927246]]], ["ovn_network.bind_port (14)", [[1, 5.136337041854858]]], ["ovn_network.wait_port_up (14)", [[1, 0.0003509521484375]]], ["ovn.create_lport (15)", [[1, 0.6077620983123779]]], ["ovn_network.bind_port (15)", [[1, 5.765133857727051]]], ["ovn_network.wait_port_up (15)", [[1, 0.0004448890686035156]]], ["ovn.create_lport (16)", [[1, 0.5462591648101807]]], ["ovn_network.bind_port (16)", [[1, 6.2871129512786865]]], ["ovn_network.wait_port_up (16)", [[1, 0.000553131103515625]]], ["ovn.create_lport (17)", [[1, 0.9113578796386719]]], ["ovn_network.bind_port (17)", [[1, 6.867234945297241]]], ["ovn_network.wait_port_up (17)", [[1, 0.00045013427734375]]], ["ovn.create_lport (18)", [[1, 0.9288339614868164]]], ["ovn_network.bind_port (18)", [[1, 7.4819958209991455]]], ["ovn_network.wait_port_up (18)", [[1, 0.00037479400634765625]]], ["ovn.create_lport (19)", [[1, 0.754673957824707]]], ["ovn_network.bind_port (19)", [[1, 8.146694898605347]]], ["ovn_network.wait_port_up (19)", [[1, 0.0004630088806152344]]], ["ovn.create_lport (20)", [[1, 0.6414000988006592]]], ["ovn_network.bind_port (20)", [[1, 8.837276935577393]]], ["ovn_network.wait_port_up (20)", [[1, 0.0004642009735107422]]]], "histogram": {"data": [[{"disabled": 0, "values": [{"y": 1, "x": 1.5597259998321533}], "key": "ovn.create_lswitch", "view": "Square Root Choice"}, {"disabled": 1, "values": [{"y": 1, "x": 0.04979586601257324}], "key": "ovn.create_lport", "view": "Square Root Choice"}, {"disabled": 2, "values": [{"y": 1, "x": 5.261145114898682}], "key": "ovn_network.bind_port", "view": "Square Root Choice"}, {"disabled": 3, "values": [{"y": 1, "x": 0.0005578994750976562}], "key": "ovn_network.wait_port_up", "view": "Square Root Choice"}, {"disabled": 4, "values": [{"y": 1, "x": 0.0583338737487793}], "key": "ovn.create_lport (2)", "view": "Square Root Choice"}, {"disabled": 5, "values": [{"y": 1, "x": 0.9611201286315918}], "key": "ovn_network.bind_port (2)", "view": "Square Root Choice"}, {"disabled": 6, "values": [{"y": 1, "x": 0.0005428791046142578}], "key": "ovn_network.wait_port_up (2)", "view": "Square Root Choice"}, {"disabled": 7, "values": [{"y": 1, "x": 0.09137606620788574}], "key": "ovn.create_lport (3)", "view": "Square Root Choice"}, {"disabled": 8, "values": [{"y": 1, "x": 1.1253619194030762}], "key": "ovn_network.bind_port (3)", "view": "Square Root Choice"}, {"disabled": 9, "values": [{"y": 1, "x": 0.0003459453582763672}], "key": "ovn_network.wait_port_up (3)", "view": "Square Root Choice"}, {"disabled": 10, "values": [{"y": 1, "x": 0.14844894409179688}], "key": "ovn.create_lport (4)", "view": "Square Root Choice"}, {"disabled": 11, "values": [{"y": 1, "x": 1.3248779773712158}], "key": "ovn_network.bind_port (4)", "view": "Square Root Choice"}, {"disabled": 12, "values": [{"y": 1, "x": 0.00038814544677734375}], "key": "ovn_network.wait_port_up (4)", "view": "Square Root Choice"}, {"disabled": 13, "values": [{"y": 1, "x": 0.24289894104003906}], "key": "ovn.create_lport (5)", "view": "Square Root Choice"}, {"disabled": 14, "values": [{"y": 1, "x": 1.5750200748443604}], "key": "ovn_network.bind_port (5)", "view": "Square Root Choice"}, {"disabled": 15, "values": [{"y": 1, "x": 0.0003981590270996094}], "key": "ovn_network.wait_port_up (5)", "view": "Square Root Choice"}, {"disabled": 16, "values": [{"y": 1, "x": 0.28943705558776855}], "key": "ovn.create_lport (6)", "view": "Square Root Choice"}, {"disabled": 17, "values": [{"y": 1, "x": 1.838587999343872}], "key": "ovn_network.bind_port (6)", "view": "Square Root Choice"}, {"disabled": 18, "values": [{"y": 1, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (6)", "view": "Square Root Choice"}, {"disabled": 19, "values": [{"y": 1, "x": 0.2479860782623291}], "key": "ovn.create_lport (7)", "view": "Square Root Choice"}, {"disabled": 20, "values": [{"y": 1, "x": 2.1628849506378174}], "key": "ovn_network.bind_port (7)", "view": "Square Root Choice"}, {"disabled": 21, "values": [{"y": 1, "x": 0.00044083595275878906}], "key": "ovn_network.wait_port_up (7)", "view": "Square Root Choice"}, {"disabled": 22, "values": [{"y": 1, "x": 0.31052303314208984}], "key": "ovn.create_lport (8)", "view": "Square Root Choice"}, {"disabled": 23, "values": [{"y": 1, "x": 2.512178897857666}], "key": "ovn_network.bind_port (8)", "view": "Square Root Choice"}, {"disabled": 24, "values": [{"y": 1, "x": 0.0003750324249267578}], "key": "ovn_network.wait_port_up (8)", "view": "Square Root Choice"}, {"disabled": 25, "values": [{"y": 1, "x": 0.39877820014953613}], "key": "ovn.create_lport (9)", "view": "Square Root Choice"}, {"disabled": 26, "values": [{"y": 1, "x": 2.923776865005493}], "key": "ovn_network.bind_port (9)", "view": "Square Root Choice"}, {"disabled": 27, "values": [{"y": 1, "x": 0.0004379749298095703}], "key": "ovn_network.wait_port_up (9)", "view": "Square Root Choice"}, {"disabled": 28, "values": [{"y": 1, "x": 0.43496012687683105}], "key": "ovn.create_lport (10)", "view": "Square Root Choice"}, {"disabled": 29, "values": [{"y": 1, "x": 3.3284828662872314}], "key": "ovn_network.bind_port (10)", "view": "Square Root Choice"}, {"disabled": 30, "values": [{"y": 1, "x": 0.00044989585876464844}], "key": "ovn_network.wait_port_up (10)", "view": "Square Root Choice"}, {"disabled": 31, "values": [{"y": 1, "x": 0.4507601261138916}], "key": "ovn.create_lport (11)", "view": "Square Root Choice"}, {"disabled": 32, "values": [{"y": 1, "x": 3.7033939361572266}], "key": "ovn_network.bind_port (11)", "view": "Square Root Choice"}, {"disabled": 33, "values": [{"y": 1, "x": 0.0004220008850097656}], "key": "ovn_network.wait_port_up (11)", "view": "Square Root Choice"}, {"disabled": 34, "values": [{"y": 1, "x": 0.37570881843566895}], "key": "ovn.create_lport (12)", "view": "Square Root Choice"}, {"disabled": 35, "values": [{"y": 1, "x": 4.161636829376221}], "key": "ovn_network.bind_port (12)", "view": "Square Root Choice"}, {"disabled": 36, "values": [{"y": 1, "x": 0.0004508495330810547}], "key": "ovn_network.wait_port_up (12)", "view": "Square Root Choice"}, {"disabled": 37, "values": [{"y": 1, "x": 0.6838419437408447}], "key": "ovn.create_lport (13)", "view": "Square Root Choice"}, {"disabled": 38, "values": [{"y": 1, "x": 4.628485918045044}], "key": "ovn_network.bind_port (13)", "view": "Square Root Choice"}, {"disabled": 39, "values": [{"y": 1, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (13)", "view": "Square Root Choice"}, {"disabled": 40, "values": [{"y": 1, "x": 0.7249159812927246}], "key": "ovn.create_lport (14)", "view": "Square Root Choice"}, {"disabled": 41, "values": [{"y": 1, "x": 5.136337041854858}], "key": "ovn_network.bind_port (14)", "view": "Square Root Choice"}, {"disabled": 42, "values": [{"y": 1, "x": 0.0003509521484375}], "key": "ovn_network.wait_port_up (14)", "view": "Square Root Choice"}, {"disabled": 43, "values": [{"y": 1, "x": 0.6077620983123779}], "key": "ovn.create_lport (15)", "view": "Square Root Choice"}, {"disabled": 44, "values": [{"y": 1, "x": 5.765133857727051}], "key": "ovn_network.bind_port (15)", "view": "Square Root Choice"}, {"disabled": 45, "values": [{"y": 1, "x": 0.0004448890686035156}], "key": "ovn_network.wait_port_up (15)", "view": "Square Root Choice"}, {"disabled": 46, "values": [{"y": 1, "x": 0.5462591648101807}], "key": "ovn.create_lport (16)", "view": "Square Root Choice"}, {"disabled": 47, "values": [{"y": 1, "x": 6.2871129512786865}], "key": "ovn_network.bind_port (16)", "view": "Square Root Choice"}, {"disabled": 48, "values": [{"y": 1, "x": 0.000553131103515625}], "key": "ovn_network.wait_port_up (16)", "view": "Square Root Choice"}, {"disabled": 49, "values": [{"y": 1, "x": 0.9113578796386719}], "key": "ovn.create_lport (17)", "view": "Square Root Choice"}, {"disabled": 50, "values": [{"y": 1, "x": 6.867234945297241}], "key": "ovn_network.bind_port (17)", "view": "Square Root Choice"}, {"disabled": 51, "values": [{"y": 1, "x": 0.00045013427734375}], "key": "ovn_network.wait_port_up (17)", "view": "Square Root Choice"}, {"disabled": 52, "values": [{"y": 1, "x": 0.9288339614868164}], "key": "ovn.create_lport (18)", "view": "Square Root Choice"}, {"disabled": 53, "values": [{"y": 1, "x": 7.4819958209991455}], "key": "ovn_network.bind_port (18)", "view": "Square Root Choice"}, {"disabled": 54, "values": [{"y": 1, "x": 0.00037479400634765625}], "key": "ovn_network.wait_port_up (18)", "view": "Square Root Choice"}, {"disabled": 55, "values": [{"y": 1, "x": 0.754673957824707}], "key": "ovn.create_lport (19)", "view": "Square Root Choice"}, {"disabled": 56, "values": [{"y": 1, "x": 8.146694898605347}], "key": "ovn_network.bind_port (19)", "view": "Square Root Choice"}, {"disabled": 57, "values": [{"y": 1, "x": 0.0004630088806152344}], "key": "ovn_network.wait_port_up (19)", "view": "Square Root Choice"}, {"disabled": 58, "values": [{"y": 1, "x": 0.6414000988006592}], "key": "ovn.create_lport (20)", "view": "Square Root Choice"}, {"disabled": 59, "values": [{"y": 1, "x": 8.837276935577393}], "key": "ovn_network.bind_port (20)", "view": "Square Root Choice"}, {"disabled": 60, "values": [{"y": 1, "x": 0.0004642009735107422}], "key": "ovn_network.wait_port_up (20)", "view": "Square Root Choice"}], [{"disabled": 0, "values": [{"y": 1, "x": 1.5597259998321533}], "key": "ovn.create_lswitch", "view": "Sturges Formula"}, {"disabled": 1, "values": [{"y": 1, "x": 0.04979586601257324}], "key": "ovn.create_lport", "view": "Sturges Formula"}, {"disabled": 2, "values": [{"y": 1, "x": 5.261145114898682}], "key": "ovn_network.bind_port", "view": "Sturges Formula"}, {"disabled": 3, "values": [{"y": 1, "x": 0.0005578994750976562}], "key": "ovn_network.wait_port_up", "view": "Sturges Formula"}, {"disabled": 4, "values": [{"y": 1, "x": 0.0583338737487793}], "key": "ovn.create_lport (2)", "view": "Sturges Formula"}, {"disabled": 5, "values": [{"y": 1, "x": 0.9611201286315918}], "key": "ovn_network.bind_port (2)", "view": "Sturges Formula"}, {"disabled": 6, "values": [{"y": 1, "x": 0.0005428791046142578}], "key": "ovn_network.wait_port_up (2)", "view": "Sturges Formula"}, {"disabled": 7, "values": [{"y": 1, "x": 0.09137606620788574}], "key": "ovn.create_lport (3)", "view": "Sturges Formula"}, {"disabled": 8, "values": [{"y": 1, "x": 1.1253619194030762}], "key": "ovn_network.bind_port (3)", "view": "Sturges Formula"}, {"disabled": 9, "values": [{"y": 1, "x": 0.0003459453582763672}], "key": "ovn_network.wait_port_up (3)", "view": "Sturges Formula"}, {"disabled": 10, "values": [{"y": 1, "x": 0.14844894409179688}], "key": "ovn.create_lport (4)", "view": "Sturges Formula"}, {"disabled": 11, "values": [{"y": 1, "x": 1.3248779773712158}], "key": "ovn_network.bind_port (4)", "view": "Sturges Formula"}, {"disabled": 12, "values": [{"y": 1, "x": 0.00038814544677734375}], "key": "ovn_network.wait_port_up (4)", "view": "Sturges Formula"}, {"disabled": 13, "values": [{"y": 1, "x": 0.24289894104003906}], "key": "ovn.create_lport (5)", "view": "Sturges Formula"}, {"disabled": 14, "values": [{"y": 1, "x": 1.5750200748443604}], "key": "ovn_network.bind_port (5)", "view": "Sturges Formula"}, {"disabled": 15, "values": [{"y": 1, "x": 0.0003981590270996094}], "key": "ovn_network.wait_port_up (5)", "view": "Sturges Formula"}, {"disabled": 16, "values": [{"y": 1, "x": 0.28943705558776855}], "key": "ovn.create_lport (6)", "view": "Sturges Formula"}, {"disabled": 17, "values": [{"y": 1, "x": 1.838587999343872}], "key": "ovn_network.bind_port (6)", "view": "Sturges Formula"}, {"disabled": 18, "values": [{"y": 1, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (6)", "view": "Sturges Formula"}, {"disabled": 19, "values": [{"y": 1, "x": 0.2479860782623291}], "key": "ovn.create_lport (7)", "view": "Sturges Formula"}, {"disabled": 20, "values": [{"y": 1, "x": 2.1628849506378174}], "key": "ovn_network.bind_port (7)", "view": "Sturges Formula"}, {"disabled": 21, "values": [{"y": 1, "x": 0.00044083595275878906}], "key": "ovn_network.wait_port_up (7)", "view": "Sturges Formula"}, {"disabled": 22, "values": [{"y": 1, "x": 0.31052303314208984}], "key": "ovn.create_lport (8)", "view": "Sturges Formula"}, {"disabled": 23, "values": [{"y": 1, "x": 2.512178897857666}], "key": "ovn_network.bind_port (8)", "view": "Sturges Formula"}, {"disabled": 24, "values": [{"y": 1, "x": 0.0003750324249267578}], "key": "ovn_network.wait_port_up (8)", "view": "Sturges Formula"}, {"disabled": 25, "values": [{"y": 1, "x": 0.39877820014953613}], "key": "ovn.create_lport (9)", "view": "Sturges Formula"}, {"disabled": 26, "values": [{"y": 1, "x": 2.923776865005493}], "key": "ovn_network.bind_port (9)", "view": "Sturges Formula"}, {"disabled": 27, "values": [{"y": 1, "x": 0.0004379749298095703}], "key": "ovn_network.wait_port_up (9)", "view": "Sturges Formula"}, {"disabled": 28, "values": [{"y": 1, "x": 0.43496012687683105}], "key": "ovn.create_lport (10)", "view": "Sturges Formula"}, {"disabled": 29, "values": [{"y": 1, "x": 3.3284828662872314}], "key": "ovn_network.bind_port (10)", "view": "Sturges Formula"}, {"disabled": 30, "values": [{"y": 1, "x": 0.00044989585876464844}], "key": "ovn_network.wait_port_up (10)", "view": "Sturges Formula"}, {"disabled": 31, "values": [{"y": 1, "x": 0.4507601261138916}], "key": "ovn.create_lport (11)", "view": "Sturges Formula"}, {"disabled": 32, "values": [{"y": 1, "x": 3.7033939361572266}], "key": "ovn_network.bind_port (11)", "view": "Sturges Formula"}, {"disabled": 33, "values": [{"y": 1, "x": 0.0004220008850097656}], "key": "ovn_network.wait_port_up (11)", "view": "Sturges Formula"}, {"disabled": 34, "values": [{"y": 1, "x": 0.37570881843566895}], "key": "ovn.create_lport (12)", "view": "Sturges Formula"}, {"disabled": 35, "values": [{"y": 1, "x": 4.161636829376221}], "key": "ovn_network.bind_port (12)", "view": "Sturges Formula"}, {"disabled": 36, "values": [{"y": 1, "x": 0.0004508495330810547}], "key": "ovn_network.wait_port_up (12)", "view": "Sturges Formula"}, {"disabled": 37, "values": [{"y": 1, "x": 0.6838419437408447}], "key": "ovn.create_lport (13)", "view": "Sturges Formula"}, {"disabled": 38, "values": [{"y": 1, "x": 4.628485918045044}], "key": "ovn_network.bind_port (13)", "view": "Sturges Formula"}, {"disabled": 39, "values": [{"y": 1, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (13)", "view": "Sturges Formula"}, {"disabled": 40, "values": [{"y": 1, "x": 0.7249159812927246}], "key": "ovn.create_lport (14)", "view": "Sturges Formula"}, {"disabled": 41, "values": [{"y": 1, "x": 5.136337041854858}], "key": "ovn_network.bind_port (14)", "view": "Sturges Formula"}, {"disabled": 42, "values": [{"y": 1, "x": 0.0003509521484375}], "key": "ovn_network.wait_port_up (14)", "view": "Sturges Formula"}, {"disabled": 43, "values": [{"y": 1, "x": 0.6077620983123779}], "key": "ovn.create_lport (15)", "view": "Sturges Formula"}, {"disabled": 44, "values": [{"y": 1, "x": 5.765133857727051}], "key": "ovn_network.bind_port (15)", "view": "Sturges Formula"}, {"disabled": 45, "values": [{"y": 1, "x": 0.0004448890686035156}], "key": "ovn_network.wait_port_up (15)", "view": "Sturges Formula"}, {"disabled": 46, "values": [{"y": 1, "x": 0.5462591648101807}], "key": "ovn.create_lport (16)", "view": "Sturges Formula"}, {"disabled": 47, "values": [{"y": 1, "x": 6.2871129512786865}], "key": "ovn_network.bind_port (16)", "view": "Sturges Formula"}, {"disabled": 48, "values": [{"y": 1, "x": 0.000553131103515625}], "key": "ovn_network.wait_port_up (16)", "view": "Sturges Formula"}, {"disabled": 49, "values": [{"y": 1, "x": 0.9113578796386719}], "key": "ovn.create_lport (17)", "view": "Sturges Formula"}, {"disabled": 50, "values": [{"y": 1, "x": 6.867234945297241}], "key": "ovn_network.bind_port (17)", "view": "Sturges Formula"}, {"disabled": 51, "values": [{"y": 1, "x": 0.00045013427734375}], "key": "ovn_network.wait_port_up (17)", "view": "Sturges Formula"}, {"disabled": 52, "values": [{"y": 1, "x": 0.9288339614868164}], "key": "ovn.create_lport (18)", "view": "Sturges Formula"}, {"disabled": 53, "values": [{"y": 1, "x": 7.4819958209991455}], "key": "ovn_network.bind_port (18)", "view": "Sturges Formula"}, {"disabled": 54, "values": [{"y": 1, "x": 0.00037479400634765625}], "key": "ovn_network.wait_port_up (18)", "view": "Sturges Formula"}, {"disabled": 55, "values": [{"y": 1, "x": 0.754673957824707}], "key": "ovn.create_lport (19)", "view": "Sturges Formula"}, {"disabled": 56, "values": [{"y": 1, "x": 8.146694898605347}], "key": "ovn_network.bind_port (19)", "view": "Sturges Formula"}, {"disabled": 57, "values": [{"y": 1, "x": 0.0004630088806152344}], "key": "ovn_network.wait_port_up (19)", "view": "Sturges Formula"}, {"disabled": 58, "values": [{"y": 1, "x": 0.6414000988006592}], "key": "ovn.create_lport (20)", "view": "Sturges Formula"}, {"disabled": 59, "values": [{"y": 1, "x": 8.837276935577393}], "key": "ovn_network.bind_port (20)", "view": "Sturges Formula"}, {"disabled": 60, "values": [{"y": 1, "x": 0.0004642009735107422}], "key": "ovn_network.wait_port_up (20)", "view": "Sturges Formula"}], [{"disabled": 0, "values": [{"y": 1, "x": 1.5597259998321533}, {"y": 0, "x": 1.5597259998321533}], "key": "ovn.create_lswitch", "view": "Rice Rule"}, {"disabled": 1, "values": [{"y": 1, "x": 0.04979586601257324}, {"y": 0, "x": 0.04979586601257324}], "key": "ovn.create_lport", "view": "Rice Rule"}, {"disabled": 2, "values": [{"y": 1, "x": 5.261145114898682}, {"y": 0, "x": 5.261145114898682}], "key": "ovn_network.bind_port", "view": "Rice Rule"}, {"disabled": 3, "values": [{"y": 1, "x": 0.0005578994750976562}, {"y": 0, "x": 0.0005578994750976562}], "key": "ovn_network.wait_port_up", "view": "Rice Rule"}, {"disabled": 4, "values": [{"y": 1, "x": 0.0583338737487793}, {"y": 0, "x": 0.0583338737487793}], "key": "ovn.create_lport (2)", "view": "Rice Rule"}, {"disabled": 5, "values": [{"y": 1, "x": 0.9611201286315918}, {"y": 0, "x": 0.9611201286315918}], "key": "ovn_network.bind_port (2)", "view": "Rice Rule"}, {"disabled": 6, "values": [{"y": 1, "x": 0.0005428791046142578}, {"y": 0, "x": 0.0005428791046142578}], "key": "ovn_network.wait_port_up (2)", "view": "Rice Rule"}, {"disabled": 7, "values": [{"y": 1, "x": 0.09137606620788574}, {"y": 0, "x": 0.09137606620788574}], "key": "ovn.create_lport (3)", "view": "Rice Rule"}, {"disabled": 8, "values": [{"y": 1, "x": 1.1253619194030762}, {"y": 0, "x": 1.1253619194030762}], "key": "ovn_network.bind_port (3)", "view": "Rice Rule"}, {"disabled": 9, "values": [{"y": 1, "x": 0.0003459453582763672}, {"y": 0, "x": 0.0003459453582763672}], "key": "ovn_network.wait_port_up (3)", "view": "Rice Rule"}, {"disabled": 10, "values": [{"y": 1, "x": 0.14844894409179688}, {"y": 0, "x": 0.14844894409179688}], "key": "ovn.create_lport (4)", "view": "Rice Rule"}, {"disabled": 11, "values": [{"y": 1, "x": 1.3248779773712158}, {"y": 0, "x": 1.3248779773712158}], "key": "ovn_network.bind_port (4)", "view": "Rice Rule"}, {"disabled": 12, "values": [{"y": 1, "x": 0.00038814544677734375}, {"y": 0, "x": 0.00038814544677734375}], "key": "ovn_network.wait_port_up (4)", "view": "Rice Rule"}, {"disabled": 13, "values": [{"y": 1, "x": 0.24289894104003906}, {"y": 0, "x": 0.24289894104003906}], "key": "ovn.create_lport (5)", "view": "Rice Rule"}, {"disabled": 14, "values": [{"y": 1, "x": 1.5750200748443604}, {"y": 0, "x": 1.5750200748443604}], "key": "ovn_network.bind_port (5)", "view": "Rice Rule"}, {"disabled": 15, "values": [{"y": 1, "x": 0.0003981590270996094}, {"y": 0, "x": 0.0003981590270996094}], "key": "ovn_network.wait_port_up (5)", "view": "Rice Rule"}, {"disabled": 16, "values": [{"y": 1, "x": 0.28943705558776855}, {"y": 0, "x": 0.28943705558776855}], "key": "ovn.create_lport (6)", "view": "Rice Rule"}, {"disabled": 17, "values": [{"y": 1, "x": 1.838587999343872}, {"y": 0, "x": 1.838587999343872}], "key": "ovn_network.bind_port (6)", "view": "Rice Rule"}, {"disabled": 18, "values": [{"y": 1, "x": 0.0004398822784423828}, {"y": 0, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (6)", "view": "Rice Rule"}, {"disabled": 19, "values": [{"y": 1, "x": 0.2479860782623291}, {"y": 0, "x": 0.2479860782623291}], "key": "ovn.create_lport (7)", "view": "Rice Rule"}, {"disabled": 20, "values": [{"y": 1, "x": 2.1628849506378174}, {"y": 0, "x": 2.1628849506378174}], "key": "ovn_network.bind_port (7)", "view": "Rice Rule"}, {"disabled": 21, "values": [{"y": 1, "x": 0.00044083595275878906}, {"y": 0, "x": 0.00044083595275878906}], "key": "ovn_network.wait_port_up (7)", "view": "Rice Rule"}, {"disabled": 22, "values": [{"y": 1, "x": 0.31052303314208984}, {"y": 0, "x": 0.31052303314208984}], "key": "ovn.create_lport (8)", "view": "Rice Rule"}, {"disabled": 23, "values": [{"y": 1, "x": 2.512178897857666}, {"y": 0, "x": 2.512178897857666}], "key": "ovn_network.bind_port (8)", "view": "Rice Rule"}, {"disabled": 24, "values": [{"y": 1, "x": 0.0003750324249267578}, {"y": 0, "x": 0.0003750324249267578}], "key": "ovn_network.wait_port_up (8)", "view": "Rice Rule"}, {"disabled": 25, "values": [{"y": 1, "x": 0.39877820014953613}, {"y": 0, "x": 0.39877820014953613}], "key": "ovn.create_lport (9)", "view": "Rice Rule"}, {"disabled": 26, "values": [{"y": 1, "x": 2.923776865005493}, {"y": 0, "x": 2.923776865005493}], "key": "ovn_network.bind_port (9)", "view": "Rice Rule"}, {"disabled": 27, "values": [{"y": 1, "x": 0.0004379749298095703}, {"y": 0, "x": 0.0004379749298095703}], "key": "ovn_network.wait_port_up (9)", "view": "Rice Rule"}, {"disabled": 28, "values": [{"y": 1, "x": 0.43496012687683105}, {"y": 0, "x": 0.43496012687683105}], "key": "ovn.create_lport (10)", "view": "Rice Rule"}, {"disabled": 29, "values": [{"y": 1, "x": 3.3284828662872314}, {"y": 0, "x": 3.3284828662872314}], "key": "ovn_network.bind_port (10)", "view": "Rice Rule"}, {"disabled": 30, "values": [{"y": 1, "x": 0.00044989585876464844}, {"y": 0, "x": 0.00044989585876464844}], "key": "ovn_network.wait_port_up (10)", "view": "Rice Rule"}, {"disabled": 31, "values": [{"y": 1, "x": 0.4507601261138916}, {"y": 0, "x": 0.4507601261138916}], "key": "ovn.create_lport (11)", "view": "Rice Rule"}, {"disabled": 32, "values": [{"y": 1, "x": 3.7033939361572266}, {"y": 0, "x": 3.7033939361572266}], "key": "ovn_network.bind_port (11)", "view": "Rice Rule"}, {"disabled": 33, "values": [{"y": 1, "x": 0.0004220008850097656}, {"y": 0, "x": 0.0004220008850097656}], "key": "ovn_network.wait_port_up (11)", "view": "Rice Rule"}, {"disabled": 34, "values": [{"y": 1, "x": 0.37570881843566895}, {"y": 0, "x": 0.37570881843566895}], "key": "ovn.create_lport (12)", "view": "Rice Rule"}, {"disabled": 35, "values": [{"y": 1, "x": 4.161636829376221}, {"y": 0, "x": 4.161636829376221}], "key": "ovn_network.bind_port (12)", "view": "Rice Rule"}, {"disabled": 36, "values": [{"y": 1, "x": 0.0004508495330810547}, {"y": 0, "x": 0.0004508495330810547}], "key": "ovn_network.wait_port_up (12)", "view": "Rice Rule"}, {"disabled": 37, "values": [{"y": 1, "x": 0.6838419437408447}, {"y": 0, "x": 0.6838419437408447}], "key": "ovn.create_lport (13)", "view": "Rice Rule"}, {"disabled": 38, "values": [{"y": 1, "x": 4.628485918045044}, {"y": 0, "x": 4.628485918045044}], "key": "ovn_network.bind_port (13)", "view": "Rice Rule"}, {"disabled": 39, "values": [{"y": 1, "x": 0.0004398822784423828}, {"y": 0, "x": 0.0004398822784423828}], "key": "ovn_network.wait_port_up (13)", "view": "Rice Rule"}, {"disabled": 40, "values": [{"y": 1, "x": 0.7249159812927246}, {"y": 0, "x": 0.7249159812927246}], "key": "ovn.create_lport (14)", "view": "Rice Rule"}, {"disabled": 41, "values": [{"y": 1, "x": 5.136337041854858}, {"y": 0, "x": 5.136337041854858}], "key": "ovn_network.bind_port (14)", "view": "Rice Rule"}, {"disabled": 42, "values": [{"y": 1, "x": 0.0003509521484375}, {"y": 0, "x": 0.0003509521484375}], "key": "ovn_network.wait_port_up (14)", "view": "Rice Rule"}, {"disabled": 43, "values": [{"y": 1, "x": 0.6077620983123779}, {"y": 0, "x": 0.6077620983123779}], "key": "ovn.create_lport (15)", "view": "Rice Rule"}, {"disabled": 44, "values": [{"y": 1, "x": 5.765133857727051}, {"y": 0, "x": 5.765133857727051}], "key": "ovn_network.bind_port (15)", "view": "Rice Rule"}, {"disabled": 45, "values": [{"y": 1, "x": 0.0004448890686035156}, {"y": 0, "x": 0.0004448890686035156}], "key": "ovn_network.wait_port_up (15)", "view": "Rice Rule"}, {"disabled": 46, "values": [{"y": 1, "x": 0.5462591648101807}, {"y": 0, "x": 0.5462591648101807}], "key": "ovn.create_lport (16)", "view": "Rice Rule"}, {"disabled": 47, "values": [{"y": 1, "x": 6.2871129512786865}, {"y": 0, "x": 6.2871129512786865}], "key": "ovn_network.bind_port (16)", "view": "Rice Rule"}, {"disabled": 48, "values": [{"y": 1, "x": 0.000553131103515625}, {"y": 0, "x": 0.000553131103515625}], "key": "ovn_network.wait_port_up (16)", "view": "Rice Rule"}, {"disabled": 49, "values": [{"y": 1, "x": 0.9113578796386719}, {"y": 0, "x": 0.9113578796386719}], "key": "ovn.create_lport (17)", "view": "Rice Rule"}, {"disabled": 50, "values": [{"y": 1, "x": 6.867234945297241}, {"y": 0, "x": 6.867234945297241}], "key": "ovn_network.bind_port (17)", "view": "Rice Rule"}, {"disabled": 51, "values": [{"y": 1, "x": 0.00045013427734375}, {"y": 0, "x": 0.00045013427734375}], "key": "ovn_network.wait_port_up (17)", "view": "Rice Rule"}, {"disabled": 52, "values": [{"y": 1, "x": 0.9288339614868164}, {"y": 0, "x": 0.9288339614868164}], "key": "ovn.create_lport (18)", "view": "Rice Rule"}, {"disabled": 53, "values": [{"y": 1, "x": 7.4819958209991455}, {"y": 0, "x": 7.4819958209991455}], "key": "ovn_network.bind_port (18)", "view": "Rice Rule"}, {"disabled": 54, "values": [{"y": 1, "x": 0.00037479400634765625}, {"y": 0, "x": 0.00037479400634765625}], "key": "ovn_network.wait_port_up (18)", "view": "Rice Rule"}, {"disabled": 55, "values": [{"y": 1, "x": 0.754673957824707}, {"y": 0, "x": 0.754673957824707}], "key": "ovn.create_lport (19)", "view": "Rice Rule"}, {"disabled": 56, "values": [{"y": 1, "x": 8.146694898605347}, {"y": 0, "x": 8.146694898605347}], "key": "ovn_network.bind_port (19)", "view": "Rice Rule"}, {"disabled": 57, "values": [{"y": 1, "x": 0.0004630088806152344}, {"y": 0, "x": 0.0004630088806152344}], "key": "ovn_network.wait_port_up (19)", "view": "Rice Rule"}, {"disabled": 58, "values": [{"y": 1, "x": 0.6414000988006592}, {"y": 0, "x": 0.6414000988006592}], "key": "ovn.create_lport (20)", "view": "Rice Rule"}, {"disabled": 59, "values": [{"y": 1, "x": 8.837276935577393}, {"y": 0, "x": 8.837276935577393}], "key": "ovn_network.bind_port (20)", "view": "Rice Rule"}, {"disabled": 60, "values": [{"y": 1, "x": 0.0004642009735107422}, {"y": 0, "x": 0.0004642009735107422}], "key": "ovn_network.wait_port_up (20)", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "iterations": {"pie": [["success", 1], ["errors", 0]], "iter": [["duration", [[1, 94.50103688240051]]], ["idle_duration", [[1, 0]]]], "histogram": {"data": [[{"disabled": null, "values": [{"y": 1, "x": 94.50103688240051}], "key": "task", "view": "Square Root Choice"}], [{"disabled": null, "values": [{"y": 1, "x": 94.50103688240051}], "key": "task", "view": "Sturges Formula"}], [{"disabled": null, "values": [{"y": 1, "x": 94.50103688240051}, {"y": 0, "x": 94.50103688240051}], "key": "task", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "additive_output": [], "table": {"rows": [["ovn.create_lswitch", 1.56, 1.56, 1.56, 1.56, 1.56, 1.56, "100.0%", 1], ["ovn.create_lport", 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, "100.0%", 1], ["ovn_network.bind_port", 5.261, 5.261, 5.261, 5.261, 5.261, 5.261, "100.0%", 1], ["ovn_network.wait_port_up", 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, "100.0%", 1], ["ovn.create_lport (2)", 0.058, 0.058, 0.058, 0.058, 0.058, 0.058, "100.0%", 1], ["ovn_network.bind_port (2)", 0.961, 0.961, 0.961, 0.961, 0.961, 0.961, "100.0%", 1], ["ovn_network.wait_port_up (2)", 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, "100.0%", 1], ["ovn.create_lport (3)", 0.091, 0.091, 0.091, 0.091, 0.091, 0.091, "100.0%", 1], ["ovn_network.bind_port (3)", 1.125, 1.125, 1.125, 1.125, 1.125, 1.125, "100.0%", 1], ["ovn_network.wait_port_up (3)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (4)", 0.148, 0.148, 0.148, 0.148, 0.148, 0.148, "100.0%", 1], ["ovn_network.bind_port (4)", 1.325, 1.325, 1.325, 1.325, 1.325, 1.325, "100.0%", 1], ["ovn_network.wait_port_up (4)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (5)", 0.243, 0.243, 0.243, 0.243, 0.243, 0.243, "100.0%", 1], ["ovn_network.bind_port (5)", 1.575, 1.575, 1.575, 1.575, 1.575, 1.575, "100.0%", 1], ["ovn_network.wait_port_up (5)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (6)", 0.289, 0.289, 0.289, 0.289, 0.289, 0.289, "100.0%", 1], ["ovn_network.bind_port (6)", 1.839, 1.839, 1.839, 1.839, 1.839, 1.839, "100.0%", 1], ["ovn_network.wait_port_up (6)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (7)", 0.248, 0.248, 0.248, 0.248, 0.248, 0.248, "100.0%", 1], ["ovn_network.bind_port (7)", 2.163, 2.163, 2.163, 2.163, 2.163, 2.163, "100.0%", 1], ["ovn_network.wait_port_up (7)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (8)", 0.311, 0.311, 0.311, 0.311, 0.311, 0.311, "100.0%", 1], ["ovn_network.bind_port (8)", 2.512, 2.512, 2.512, 2.512, 2.512, 2.512, "100.0%", 1], ["ovn_network.wait_port_up (8)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (9)", 0.399, 0.399, 0.399, 0.399, 0.399, 0.399, "100.0%", 1], ["ovn_network.bind_port (9)", 2.924, 2.924, 2.924, 2.924, 2.924, 2.924, "100.0%", 1], ["ovn_network.wait_port_up (9)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (10)", 0.435, 0.435, 0.435, 0.435, 0.435, 0.435, "100.0%", 1], ["ovn_network.bind_port (10)", 3.328, 3.328, 3.328, 3.328, 3.328, 3.328, "100.0%", 1], ["ovn_network.wait_port_up (10)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (11)", 0.451, 0.451, 0.451, 0.451, 0.451, 0.451, "100.0%", 1], ["ovn_network.bind_port (11)", 3.703, 3.703, 3.703, 3.703, 3.703, 3.703, "100.0%", 1], ["ovn_network.wait_port_up (11)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (12)", 0.376, 0.376, 0.376, 0.376, 0.376, 0.376, "100.0%", 1], ["ovn_network.bind_port (12)", 4.162, 4.162, 4.162, 4.162, 4.162, 4.162, "100.0%", 1], ["ovn_network.wait_port_up (12)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (13)", 0.684, 0.684, 0.684, 0.684, 0.684, 0.684, "100.0%", 1], ["ovn_network.bind_port (13)", 4.628, 4.628, 4.628, 4.628, 4.628, 4.628, "100.0%", 1], ["ovn_network.wait_port_up (13)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (14)", 0.725, 0.725, 0.725, 0.725, 0.725, 0.725, "100.0%", 1], ["ovn_network.bind_port (14)", 5.136, 5.136, 5.136, 5.136, 5.136, 5.136, "100.0%", 1], ["ovn_network.wait_port_up (14)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (15)", 0.608, 0.608, 0.608, 0.608, 0.608, 0.608, "100.0%", 1], ["ovn_network.bind_port (15)", 5.765, 5.765, 5.765, 5.765, 5.765, 5.765, "100.0%", 1], ["ovn_network.wait_port_up (15)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (16)", 0.546, 0.546, 0.546, 0.546, 0.546, 0.546, "100.0%", 1], ["ovn_network.bind_port (16)", 6.287, 6.287, 6.287, 6.287, 6.287, 6.287, "100.0%", 1], ["ovn_network.wait_port_up (16)", 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, "100.0%", 1], ["ovn.create_lport (17)", 0.911, 0.911, 0.911, 0.911, 0.911, 0.911, "100.0%", 1], ["ovn_network.bind_port (17)", 6.867, 6.867, 6.867, 6.867, 6.867, 6.867, "100.0%", 1], ["ovn_network.wait_port_up (17)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (18)", 0.929, 0.929, 0.929, 0.929, 0.929, 0.929, "100.0%", 1], ["ovn_network.bind_port (18)", 7.482, 7.482, 7.482, 7.482, 7.482, 7.482, "100.0%", 1], ["ovn_network.wait_port_up (18)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (19)", 0.755, 0.755, 0.755, 0.755, 0.755, 0.755, "100.0%", 1], ["ovn_network.bind_port (19)", 8.147, 8.147, 8.147, 8.147, 8.147, 8.147, "100.0%", 1], ["ovn_network.wait_port_up (19)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["ovn.create_lport (20)", 0.641, 0.641, 0.641, 0.641, 0.641, 0.641, "100.0%", 1], ["ovn_network.bind_port (20)", 8.837, 8.837, 8.837, 8.837, 8.837, 8.837, "100.0%", 1], ["ovn_network.wait_port_up (20)", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "100.0%", 1], ["total", 94.501, 94.501, 94.501, 94.501, 94.501, 94.501, "100.0%", 1]], "cols": ["Action", "Min (sec)", "Median (sec)", "90%ile (sec)", "95%ile (sec)", "Max (sec)", "Avg (sec)", "Success", "Count"]}, "full_duration": 94.75399398803711, "config": "{\n  \"OvnNetwork.create_and_bind_ports\": [\n    {\n      \"runner\": {\n        \"type\": \"serial\", \n        \"times\": 1\n      }, \n      \"args\": {\n        \"network_create_args\": {\n          \"amount\": 20, \n          \"start_cidr\": \"172.160.10.0/23\", \n          \"batch\": 1\n        }, \n        \"ports_per_network\": 18, \n        \"port_create_args\": {\n          \"batch\": 18\n        }, \n        \"port_bind_args\": {\n          \"wait_up\": true, \n          \"wait_sync\": \"none\"\n        }\n      }, \n      \"context\": {\n        \"sandbox\": {\n          \"tag\": \"ToR10\"\n        }, \n        \"ovn_multihost\": {\n          \"controller\": \"ovn-controller-node\"\n        }\n      }\n    }\n  ]\n}", "sla": [], "complete_output": [[]], "cls": "OvnNetwork"}];
+
+      $scope.location = {
+        /* #/path/hash/sub/div */
+        normalize: function(str) {
+          /* Remove unwanted characters from string */
+          if (typeof str !== "string") { return "" }
+          return str.replace(/[^\w\-\.]/g, "")
+        },
+        uri: function(obj) {
+          /* Getter/Setter */
+          if (! obj) {
+            var uri = {path: "", hash: "", sub: "", div: ""};
+            var arr = ["div", "sub", "hash", "path"];
+            angular.forEach($location.url().split("/"), function(value){
+              var v = $scope.location.normalize(value);
+              if (v) { var k = arr.pop(); if (k) { this[k] = v }}
+            }, uri);
+            return uri
+          }
+          var arr = [obj.path, obj.hash, obj.sub, obj.div], res = [];
+          for (var i in arr) { if (! arr[i]) { break }; res.push(arr[i]) }
+          return $location.url("/" + res.join("/"))
+        },
+        path: function(path, hash) {
+          /* Getter/Setter */
+          if (path === "") { return this.uri({}) }
+          path = this.normalize(path);
+          var uri = this.uri();
+          if (! path) { return uri.path }
+          uri.path = path;
+          var _hash = this.normalize(hash);
+          if (_hash || hash === "") { uri.hash = _hash }
+          return this.uri(uri)
+        },
+        hash: function(hash) {
+          /* Getter/Setter */
+          if (hash) { this.uri({path:this.uri().path, hash:hash}) }
+          return this.uri().hash
+        }
+      }
+
+      /* Dispatch */
+
+      $scope.route = function(uri) {
+        if (! $scope.scenarios_map) { return }
+        if (uri.path in $scope.scenarios_map) {
+          $scope.view = {is_scenario:true};
+          $scope.scenario = $scope.scenarios_map[uri.path];
+          $scope.nav_idx = $scope.nav_map[uri.path];
+          if ($scope.scenario.iterations.histogram.views.length) {
+            $scope.mainHistogram = $scope.scenario.iterations.histogram.views[0]
+          }
+          if ($scope.scenario.atomic.histogram.views.length) {
+            $scope.atomicHistogram = $scope.scenario.atomic.histogram.views[0]
+          }
+          $scope.outputIteration = 0;
+          $scope.showTab(uri);
+        } else {
+          $scope.scenario = null;
+          if (uri.path === "source") {
+            $scope.view = {is_source:true}
+          } else {
+            $scope.view = {is_main:true}
+          }
+        }
+      }
+
+      $scope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) {
+        $scope.route($scope.location.uri())
+      });
+
+      $scope.showNav = function(nav_idx) { $scope.nav_idx = nav_idx }
+
+      /* Tabs */
+
+      $scope.tabs = [
+        {
+          id: "overview",
+          name: "Overview",
+          visible: function(){ return !! $scope.scenario.iterations.pie.length }
+        },{
+          id: "details",
+          name: "Details",
+          visible: function(){ return !! $scope.scenario.atomic.pie.length }
+        },{
+          id: "output",
+          name: "Scenario Data",
+          visible: function(){ return $scope.scenario.output.length }
+        },{
+          id: "failures",
+          name: "Failures",
+          visible: function(){ return !! $scope.scenario.errors.length }
+        },{
+          id: "task",
+          name: "Input task",
+          visible: function(){ return !! $scope.scenario.config }
+        }
+      ];
+      $scope.tabs_map = {};
+      angular.forEach($scope.tabs,
+                      function(tab){ this[tab.id] = tab }, $scope.tabs_map);
+
+      $scope.showTab = function(uri) {
+        $scope.tab = uri.hash in $scope.tabs_map ? uri.hash : "overview";
+        if (! $scope.scenario.output) {
+          var has_additive = !! $scope.scenario.additive_output.length;
+          var has_complete = !! ($scope.scenario.complete_output.length
+                                 && $scope.scenario.complete_output[0].length);
+          $scope.scenario.output = {
+            has_additive: has_additive,
+            has_complete: has_complete,
+            length: has_additive + has_complete,
+            active: has_additive ? "additive" : (has_complete ? "complete" : "")
+          }
+        }
+        if (uri.hash === "output") {
+          if (uri.sub && $scope.scenario.output["has_" + uri.sub]) {
+            $scope.scenario.output.active = uri.sub
+          }
+        }
+      }
+
+      for (var i in $scope.tabs) {
+        if ($scope.tabs[i].id === $scope.location.hash()) {
+          $scope.tab = $scope.tabs[i].id
+        }
+        $scope.tabs[i].isVisible = function() {
+          if ($scope.scenario) {
+            if (this.visible()) { return true }
+            /* If tab should be hidden but is selected - show another one */
+            if (this.id === $scope.location.hash()) {
+              for (var i in $scope.tabs) {
+                var tab = $scope.tabs[i];
+                if (tab.id != this.id && tab.visible()) {
+                  $scope.tab = tab.id;
+                  return false
+                }
+              }
+            }
+          }
+          return false
+        }
+      }
+
+      $scope.showError = function(message) {
+          return (function (e) {
+            e.style.display = "block";
+            e.textContent = message
+          })(document.getElementById("page-error"))
+      }
+
+      /* Initialization */
+
+      angular.element(document).ready(function(){
+        if (! $scope.scenarios.length) {
+          return $scope.showError("No data...")
+        }
+
+        /* Compose data mapping */
+
+        $scope.nav = [];
+        $scope.nav_map = {};
+        $scope.scenarios_map = {};
+        var met = [], itr = 0, cls_idx = 0;
+        var prev_cls, prev_met;
+
+        for (var idx in $scope.scenarios) {
+          var sc = $scope.scenarios[idx];
+          if (! prev_cls) {
+            prev_cls = sc.cls
+          }
+          else if (prev_cls !== sc.cls) {
+            $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx});
+            prev_cls = sc.cls;
+            met = [];
+            itr = 1;
+            cls_idx += 1
+          }
+
+          if (prev_met !== sc.met) { itr = 1 };
+          sc.ref = $scope.location.normalize(sc.cls+"."+sc.met+(itr > 1 ? "-"+itr : ""));
+          $scope.scenarios_map[sc.ref] = sc;
+          $scope.nav_map[sc.ref] = cls_idx;
+          met.push({name:sc.name, itr:itr, idx:idx, ref:sc.ref});
+          prev_met = sc.met;
+          itr += 1;
+        }
+
+        if (met.length) {
+          $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx})
+        }
+
+        /* Start */
+
+        var uri = $scope.location.uri();
+        uri.path = $scope.location.path();
+        $scope.route(uri);
+        $scope.$digest()
+      });
+    }])
+    .directive("widget", function($compile) {
+
+      var Chart = {
+        _render: function(node, data, chart){
+          nv.addGraph(function() {
+            d3.select(node).datum(data).transition().duration(0).call(chart);
+            nv.utils.windowResize(chart.update)
+          })
+        },
+        /* NOTE(amaretskiy): this is actually a result of
+           d3.scale.category20().range(), excluding red color (#d62728)
+           which is reserved for errors */
+        _colors: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c",
+                  "#98df8a", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b",
+                  "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+                  "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
+        _widgets: {
+          Pie: "pie",
+          StackedArea: "stack",
+          Histogram: "histogram"
+        },
+        get_chart: function(widget) {
+          if (widget in this._widgets) {
+            var name = this._widgets[widget];
+            return Chart[name]
+          }
+          return function() { console.log("Error: unexpected widget:", widget) }
+        },
+        pie: function(node, data) {
+          var chart = nv.models.pieChart()
+            .x(function(d) { return d.key })
+            .y(function(d) { return d.values })
+            .showLabels(true)
+            .labelType("percent")
+            .donut(true)
+            .donutRatio(0.25)
+            .donutLabelsOutside(true)
+            .color(function(d){
+              if (d.data && d.data.color) { return d.data.color }
+            });
+
+          var data_ = [], colors = [], colors_map = {errors: "#d62728"};
+          for (var i in data) {
+            var key = data[i][0];
+            if (! (key in colors_map)) {
+              if (! colors.length) { colors = Chart._colors.slice() }
+              colors_map[key] = colors.shift()
+            }
+            data_.push({key:key, values:data[i][1], color:colors_map[key]})
+          }
+          Chart._render(node, data_, chart)
+        },
+        stack: function(node, data, opts) {
+          var chart = nv.models.stackedAreaChart()
+            .x(function(d) { return d[0] })
+            .y(function(d) { return d[1] })
+            .useInteractiveGuideline(opts.guide)
+            .showControls(opts.controls)
+            .clipEdge(true);
+          chart.xAxis
+            .tickFormat(d3.format(opts.xformat || "d"))
+            .axisLabel(opts.xname || "")
+            .showMaxMin(false);
+          chart.yAxis
+            .tickFormat(d3.format(opts.yformat || ",.3f"))
+            .axisLabel(opts.yname || "");
+          var data_ = [];
+          for (var i in data) {
+            var d = {key:data[i][0], values:data[i][1]};
+            if (d.key === "failed_duration") {
+              d.color = "#d62728"
+            }
+            data_.push(d)
+          }
+          Chart._render(node, data_, chart)
+        },
+        histogram: function(node, data) {
+          var chart = nv.models.multiBarChart()
+            .reduceXTicks(true)
+            .showControls(false)
+            .transitionDuration(0)
+            .groupSpacing(0.05);
+          chart
+            .legend.radioButtonMode(true);
+          chart.xAxis
+            .axisLabel("Duration (seconds)")
+            .tickFormat(d3.format(",.2f"));
+          chart.yAxis
+            .axisLabel("Iterations (frequency)")
+            .tickFormat(d3.format("d"));
+          Chart._render(node, data, chart)
+        }
+      };
+
+      return {
+        restrict: "A",
+        scope: { data: "=" },
+        link: function(scope, element, attrs) {
+          scope.$watch("data", function(data) {
+            if (! data) { return console.log("Chart has no data to render!") }
+            if (attrs.widget === "Table") {
+              var ng_class = attrs.lastrowClass ? " ng-class='{"+attrs.lastrowClass+":$last}'" : "";
+              var template = "<table class='striped'><thead>" +
+                "<tr><th ng-repeat='i in data.cols track by $index'>{{i}}<tr>" +
+                "</thead><tbody>" +
+                "<tr" + ng_class + " ng-repeat='row in data.rows track by $index'>" +
+                "<td ng-repeat='i in row track by $index'>{{i}}" +
+                "<tr>" +
+                "</tbody></table>";
+              var el = element.empty().append($compile(template)(scope)).children()[0]
+            } else {
+              /* Hide widget if not enough data */
+              if (attrs.widget === "StackedArea") {
+                if ((! data.length) || (data[0].length < 1) || (data[0][1].length < 2)) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+              else if (attrs.widget === "Pie") {
+                if (! data.length) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+
+              var options = {
+                xname: attrs.nameX || "",
+                yname: attrs.nameY || "",
+                xformat: attrs.formatX || "d",
+                yformat: attrs.formatY || ",.3f",
+                controls: attrs.controls === "true",
+                guide: attrs.guide === "true"
+              };
+              var el = element.addClass("chart").css({display:"block"}).html("<svg></svg>").children()[0];
+              Chart.get_chart(attrs.widget)(el, data, options)
+            }
+
+            if (attrs.description) {
+              var desc_el = angular.element("<div>").addClass(attrs.descriptionClass || "h3").text(attrs.description);
+              angular.element(el).parent().prepend(desc_el)
+            }
+
+            if (attrs.title) {
+              var title_el = angular.element("<div>").addClass(attrs.titleClass || "h2").text(attrs.title);
+              angular.element(el).parent().prepend(title_el)
+            }
+          });
+        }
+      }
+    })
+  }
+
+</script>
+  <style>
+    body { margin:0; padding:0 0 50px; font-size:14px; font-family:Helvetica,Arial,sans-serif }
+    a, a:active, a:focus, a:visited { text-decoration:none; outline:none }
+    p { margin:0; padding:5px 0 }
+    p.thesis { padding:10px 0 }
+    h1 { color:#666; margin:0 0 20px; font-size:30px; font-weight:normal }
+    h2, .h2 { color:#666; margin:24px 0 6px; font-size:25px; font-weight:normal }
+    h3, .h3 { color:#777; margin:12px 0 4px; font-size:18px; font-weight:normal }
+    table { border-collapse:collapse; border-spacing:0; width:100%; font-size:12px; margin:0 0 10px }
+    table th { text-align:left; padding:8px; color:#000; border:2px solid #ddd; border-width:0 0 2px 0 }
+    table th.sortable { cursor:pointer }
+    table td { text-align:left; border-top:1px solid #ddd; padding:8px; color:#333 }
+    table.compact td { padding:4px 8px }
+    table.striped tr:nth-child(odd) td { background:#f9f9f9 }
+    table.linked tbody tr:hover { background:#f9f9f9; cursor:pointer }
+    .rich, .rich td { font-weight:bold }
+    .code { padding:10px; font-size:13px; color:#333; background:#f6f6f6; border:1px solid #e5e5e5; border-radius:4px }
+
+    .header { text-align:left; background:#333; font-size:18px; padding:13px 0; margin-bottom:20px; color:#fff; background-image:linear-gradient(to bottom, #444 0px, #222 100%) }
+    .header a, .header a:visited, .header a:focus { color:#999 }
+
+    .notify-error { padding:5px 10px; background:#fee; color:red }
+    .status-skip, .status-skip td { color:grey }
+    .status-pass, .status-pass td { color:green }
+    .status-fail, .status-fail td { color:red }
+    .capitalize { text-transform:capitalize }
+    
+    .aside { margin:0 20px 0 0; display:block; width:255px; float:left }
+    .aside > div { margin-bottom: 15px }
+    .aside > div div:first-child { border-top-left-radius:4px; border-top-right-radius:4px }
+    .aside > div div:last-child { border-bottom-left-radius:4px; border-bottom-right-radius:4px }
+    .navcls { color:#678; background:#eee; border:1px solid #ddd; margin-bottom:-1px; display:block; padding:8px 9px; font-weight:bold; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer }
+    .navcls.expanded { color:#469 }
+    .navcls.active { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+    .navmet { color:#555; background:#fff; border:1px solid #ddd; font-size:12px; display:block; margin-bottom:-1px; padding:8px 10px; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; cursor:pointer }
+    .navmet:hover { background:#f8f8f8 }
+    .navmet.active, .navmet.active:hover { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+
+    .tabs { list-style:outside none none; margin:0 0 5px; padding:0; border-bottom:1px solid #ddd }
+    .tabs:after { clear:both }
+    .tabs li { float:left; margin-bottom:-1px; display:block; position:relative }
+    .tabs li div { border:1px solid transparent; border-radius:4px 4px 0 0; line-height:20px; margin-right:2px; padding:10px 15px; color:#428bca }
+    .tabs li div:hover { border-color:#eee #eee #ddd; background:#eee; cursor:pointer; }
+    .tabs li.active div { background:#fff; border-color:#ddd #ddd transparent; border-style:solid; border-width:1px; color:#555; cursor:default }
+    .failure-mesg { color:#900 }
+    .failure-trace { color:#333; white-space:pre; overflow:auto }
+
+    .link { color:#428BCA; padding:5px 15px 5px 5px; text-decoration:underline; cursor:pointer }
+    .link.active { color:#333; text-decoration:none }
+
+    .chart { padding:0; margin:0 }
+    .chart svg { height:300px; padding:0; margin:0 }
+    .chart.lower svg { height:180px }
+
+    .expandable { cursor:pointer }
+    .clearfix { clear:both }
+    .sortable > .arrow { display:inline-block; width:12px; height:inherit; color:#c90 }
+    .content-main { margin:0 5px; display:block; float:left }
+
+    .content-wrap {  margin:0 auto; padding:0 5px </%block>}
+    
+    @media only screen and (min-width: 320px)  { .content-wrap { width:900px  } .content-main { width:600px } }
+    @media only screen and (min-width: 900px)  { .content-wrap { width:880px  } .content-main { width:590px } }
+    @media only screen and (min-width: 1000px) { .content-wrap { width:980px  } .content-main { width:690px } }
+    @media only screen and (min-width: 1100px) { .content-wrap { width:1080px } .content-main { width:790px } }
+    @media only screen and (min-width: 1200px) { .content-wrap { width:1180px } .content-main { width:890px } }
+
+  </style>
+</head>
+<body ng-controller="TaskController">
+
+  <div class="header">
+    <div class="content-wrap">
+      <a href="https://github.com/openstack/rally">Rally</a>&nbsp;
+      <span>task results</span>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    
+
+    <p id="page-error" class="notify-error" style="display:none"></p>
+
+    <div id="content-nav" class="aside" ng-show="scenarios.length" ng-cloack>
+      <div>
+        <div class="navcls"
+             ng-class="{active:view.is_main}"
+             ng-click="location.path('')">Task overview</div>
+        <div class="navcls"
+             ng-class="{active:view.is_source}"
+             ng-click="location.path('source', '')">Input file</div>
+      </div>
+      <div>
+        <div class="navcls" title="{{n.cls}}"
+             ng-repeat-start="n in nav track by $index"
+             ng-click="showNav(n.idx)"
+             ng-class="{expanded:n.idx==nav_idx}">
+                <span ng-hide="n.idx==nav_idx">&#9658;</span>
+                <span ng-show="n.idx==nav_idx">&#9660;</span>
+                {{n.cls}}</div>
+        <div class="navmet" title="{{m.name}}"
+             ng-show="n.idx==nav_idx"
+             ng-class="{active:m.ref==scenario.ref}"
+             ng-click="location.path(m.ref)"
+             ng-repeat="m in n.met track by $index"
+             ng-repeat-end>{{m.name}}</div>
+      </div>
+    </div>
+
+    <div id="content-main" class="content-main" ng-show="scenarios.length" ng-cloak>
+
+      <div ng-show="view.is_main">
+        <h1>Task overview</h1>
+        <table class="linked compact"
+               ng-init="ov_srt='ref'; ov_dir=false">
+          <thead>
+            <tr>
+              <th class="sortable"
+                  title="Scenario name, with optional suffix of call number"
+                  ng-click="ov_srt='ref'; ov_dir=!ov_dir">
+                Scenario
+                <span class="arrow">
+                  <b ng-show="ov_srt=='ref' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='ref' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="How long the scenario run, without context duration"
+                  ng-click="ov_srt='load_duration'; ov_dir=!ov_dir">
+                Load duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='load_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='load_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="Scenario duration plus context duration"
+                  ng-click="ov_srt='full_duration'; ov_dir=!ov_dir">
+                Full duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='full_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='full_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of iterations"
+                  ng-click="ov_srt='iterations_count'; ov_dir=!ov_dir">
+                Iterations
+                <span class="arrow">
+                  <b ng-show="ov_srt=='iterations_count' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='iterations_count' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Scenario runner type"
+                  ng-click="ov_srt='runner'; ov_dir=!ov_dir">
+                Runner
+                <span class="arrow">
+                  <b ng-show="ov_srt=='runner' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='runner' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of errors occurred"
+                  ng-click="ov_srt='errors.length'; ov_dir=!ov_dir">
+                Errors
+                <span class="arrow">
+                  <b ng-show="ov_srt=='errors.length' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='errors.length' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Whether SLA check is successful"
+                  ng-click="ov_srt='sla_success'; ov_dir=!ov_dir">
+                Success (SLA)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='sla_success' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='sla_success' && ov_dir">&#x25be;</b>
+                </span>
+            <tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="sc in scenarios | orderBy:ov_srt:ov_dir"
+                ng-click="location.path(sc.ref)">
+              <td>{{sc.ref}}
+              <td>{{sc.load_duration | number:3}}
+              <td>{{sc.full_duration | number:3}}
+              <td>{{sc.iterations_count}}
+              <td>{{sc.runner}}
+              <td>{{sc.errors.length}}
+              <td>
+                <span ng-show="sc.sla_success" class="status-pass">&#x2714;</span>
+                <span ng-hide="sc.sla_success" class="status-fail">&#x2716;</span>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-show="view.is_source">
+        <h1>Input file</h1>
+        <pre class="code">{{source}}</pre>
+      </div>
+
+      <div ng-show="view.is_scenario">
+        <h1>{{scenario.cls}}.<wbr>{{scenario.name}} ({{scenario.full_duration | number:3}}s)</h1>
+        <ul class="tabs">
+          <li ng-repeat="t in tabs"
+              ng-show="t.isVisible()"
+              ng-class="{active:t.id == tab}"
+              ng-click="location.hash(t.id)">
+            <div>{{t.name}}</div>
+          </li>
+          <div class="clearfix"></div>
+        </ul>
+        <div ng-include="tab"></div>
+
+        <script type="text/ng-template" id="overview">
+          <p class="thesis">
+            Load duration: <b>{{scenario.load_duration | number:3}} s</b> &nbsp;
+            Full duration: <b>{{scenario.full_duration | number:3}} s</b> &nbsp;
+            Iterations: <b>{{scenario.iterations_count}}</b> &nbsp;
+            Failures: <b>{{scenario.errors.length}}</b>
+          </p>
+
+          <div ng-show="scenario.sla.length">
+            <h2>Service-level agreement</h2>
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th>Criterion
+                  <th>Detail
+                  <th>Success
+                <tr>
+              </thead>
+              <tbody>
+                <tr class="rich"
+                    ng-repeat="row in scenario.sla track by $index"
+                    ng-class="{'status-fail':!row.success, 'status-pass':row.success}">
+                  <td>{{row.criterion}}
+                  <td>{{row.detail}}
+                  <td class="capitalize">{{row.success}}
+                <tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div widget="Table"
+               data="scenario.table"
+               lastrow-class="rich"
+               title="Total durations">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.iterations.iter"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.load_profile"
+               title="Load Profile"
+               title-class="h3"
+               name-x="Timeline (seconds)"
+               format-x=",.2f"
+               class="lower">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.iterations.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram"
+               ng-if="scenario.iterations.histogram.data.length"
+               data="scenario.iterations.histogram.data[mainHistogram.id]"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-model="mainHistogram"
+                  ng-show="scenario.iterations.histogram.data.length"
+                  ng-options="i.name for i in scenario.iterations.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="details">
+
+          <div widget="StackedArea"
+               data="scenario.atomic.iter"
+               title="Atomic Action Durations"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.atomic.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram" data="scenario.atomic.histogram.data[atomicHistogram.id]"
+               ng-if="scenario.atomic.histogram.data.length"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-show="scenario.atomic.histogram.data.length"
+                  ng-model="atomicHistogram"
+                  ng-options="i.name for i in scenario.atomic.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="output">
+
+          <div style="padding:10px 0 0">
+            <span class="link"
+                  ng-click="location.hash('output/additive')"
+                  ng-class="{active:scenario.output.active === 'additive'}"
+                  ng-if="scenario.output.has_additive">Aggregated</span>
+            <span class="link"
+                  ng-click="location.hash('output/complete')"
+                  ng-class="{active:scenario.output.active === 'complete'}"
+                  ng-if="scenario.output.has_complete">Per iteration</span>
+          </div>
+
+          <div ng-repeat="chart in scenario.additive_output"
+               ng-if="scenario.output.active === 'additive'">
+            <div widget="{{chart.widget}}"
+                 title="{{chart.title}}"
+                 description="{{chart.description}}"
+                 data="chart.data">
+            </div>
+          </div>
+
+          <div ng-if="scenario.output.active === 'complete'" style="padding:10px 0 0">
+            <select ng-model="outputIteration">
+              <option ng-repeat="i in scenario.complete_output track by $index"
+                      value="{{$index}}">
+                Iteration {{$index}}
+            </select>
+
+            <div ng-repeat="chart in scenario.complete_output[outputIteration]">
+              <div widget="{{chart.widget}}"
+                   title="{{chart.title}}"
+                   description="{{chart.description}}"
+                   data="chart.data">
+              </div>
+            </div>
+          </div>
+        </script>
+
+        <script type="text/ng-template" id="failures">
+          <h2>Task failures (<ng-pluralize
+            count="scenario.errors.length"
+            when="{'1': '1 iteration', 'other': '{} iterations'}"></ng-pluralize> failed)
+          </h2>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>
+                <th>Iteration
+                <th>Exception type
+                <th>Exception message
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="expandable"
+                  ng-repeat-start="i in scenario.errors track by $index"
+                  ng-click="i.expanded = ! i.expanded">
+                <td>
+                  <span ng-hide="i.expanded">&#9658;</span>
+                  <span ng-show="i.expanded">&#9660;</span>
+                <td>{{i.iteration}}
+                <td>{{i.type}}
+                <td class="failure-mesg">{{i.message}}
+              </tr>
+              <tr ng-show="i.expanded" ng-repeat-end>
+                <td colspan="4" class="failure-trace">{{i.traceback}}
+              </tr>
+            </tbody>
+          </table>
+        </script>
+
+        <script type="text/ng-template" id="task">
+          <h2>Subtask Configuration</h2>
+          <pre class="code">{{scenario.config}}</pre>
+        </script>
+      </div>
+
+    </div>
+    <div class="clearfix"></div>
+
+
+  </div>
+
+  <script type="text/javascript">
+    if (! window.angular) {(function(f){
+      f(document.getElementById("content-nav"), "none");
+      f(document.getElementById("content-main"), "none");
+      f(document.getElementById("page-error"), "block").textContent = "Failed to load AngularJS framework"
+    })(function(e, s){e.style.display = s; return e})}
+</script>
+</body>
+</html>

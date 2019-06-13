@@ -1,0 +1,32 @@
+Test Setup:
+Rally-ovs host: 192.168.200.5 ovs master
+BF0：		192.168.200.3 ovs master
+BF1 : 		192.168.200.6 ovs branch-2.11.2
+X86: 		192.168.200.4  cx4 ovs master 
+
+Step1:
+Create ovs sandbox on bf0.
+Step2:
+20 LS with 18 Lps on each switch.
+
+now with the following config:
+root@rlab-net-srv-26:~/test/k8s_work/ovn-scale-test# ovn-sbctl --column=_uuid --db=$sdb find Chassis |awk 'NF >0'  |wc -l
+35
+root@rlab-net-srv-26:~/test/k8s_work/ovn-scale-test# ovn-nbctl --column=_uuid --wait=hv --db=$NDB find Logical_Switch |awk 'NF >0' |wc -l
+680
+root@rlab-net-srv-26:~/test/k8s_work/ovn-scale-test# ovn-nbctl --column=_uuid --wait=hv --db=$NDB find Logical_Switch_Port  |awk 'NF >0' |wc -l
+12240
+
+run the stress test for the last sandbox chassis 192.168.64.100 on x86.
+create 20 LS,  18 lsp per switch, bind to sandbox on chassis.
+delete all the 20 LS
+delete lports on the sandbox br-int
+
+next round
+
+create 20 LS,  18 lsp per switch, bind to sandbox on chassis.
+delete lports on the sandbox br-int
+delete all the 20 LS
+
+3nd round
+only create with 1 LS with 18 ports

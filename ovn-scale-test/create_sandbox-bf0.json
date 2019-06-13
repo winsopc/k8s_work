@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "title": "Create sandbox",
+    "subtasks": [{
+        "title": "Create sandbox on farm 0",
+        "workloads": [{
+            "name": "OvnSandbox.create_sandbox",
+            "args": {
+                "sandbox_create_args": {
+                    "farm": "ovn-farm-node-1",
+                    "amount": 1,
+                    "batch" : 1,
+                    "start_cidr": "192.168.64.10/16",
+                    "net_dev": "enp3s0f1",
+                    "tag": "ToR10"
+                }
+            },
+            "runner": {"type": "serial", "times": 1},
+            "context": {
+                "ovn_multihost" : { "controller": "ovn-controller-node"}
+            }
+        }]
+    }]
+}
